@@ -1,0 +1,40 @@
+name: Deploy to Netlify
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest # نظام التشغيل الذي سيتم تشغيل الخطوات عليه
+
+    steps:
+      # الخطوة 1: تحميل الكود من المستودع
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # الخطوة 2: تثبيت Node.js
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' # استبدل بإصدار Node.js الذي تستخدمه
+
+      # الخطوة 3: تثبيت التبعيات
+      - name: Install dependencies
+        run: npm install
+
+      # الخطوة 4: بناء المشروع
+      - name: Build project
+        run: |
+          npm run build
+          ls -R build  # اطبع محتويات مجلد build
+
+      # الخطوة 5: النشر على Netlify
+      - name: Deploy to Netlify
+        uses: netlify/actions/cli@master # استخدم v3 بدلاً من v2
+        with:
+          args: deploy --dir=build
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
