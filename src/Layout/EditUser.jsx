@@ -27,7 +27,7 @@ const EditUser = () => {
   }
 
  async function getUser() {
-    let { data, errorMessage } = await useAxios.getUser(`${BASEURL}/${USER}/${id}`);
+    let { data } = await useAxios.getUser(`${BASEURL}/${USER}/${id}`);
    setForm({...myForm,
      name: data.name,
      email: data.email,
@@ -36,6 +36,7 @@ const EditUser = () => {
   }
   useEffect(() => {
     getUser();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
   return (
     <div>

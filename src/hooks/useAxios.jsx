@@ -70,10 +70,10 @@ let useAxios = {
     }
   },
   deleteUser: async path => {
-    let response;
+
     let errorMessage;
     try {
-      response = await axios.delete(path, {
+      await axios.delete(path, {
         headers: {
           Authorization: 'Bearer ' + token
         }

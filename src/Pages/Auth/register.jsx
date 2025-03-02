@@ -1,6 +1,5 @@
 import React, {useContext, useState} from 'react';
 import RegisterImage from '../../assets/registerImage.svg';
-import bootstrap from '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import {BASEURL, REGISTER} from '../../Api/endPoint';
 import {useNavigate} from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
@@ -19,6 +18,7 @@ const Register = () => {
   // Navigate
   let nav = useNavigate();
   // Context
+  // eslint-disable-next-line no-unused-vars
   let {user, setUser} = useContext(userContext);
   // Cookie
   let cookie = new Cookies();
@@ -38,7 +38,7 @@ const Register = () => {
     if (errorMessage) {
       setError(errorMessage);
     } else {
-      setUser(data);      
+      setUser(data);
       cookie.set('Bearer', data.token);
       nav('/');
     }

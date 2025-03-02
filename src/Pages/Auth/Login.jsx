@@ -1,6 +1,5 @@
 import React, {useContext, useState} from 'react';
 import RegisterImage from '../../assets/registerImage.svg';
-import bootstrap from '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import {BASEURL, LOGIN} from '../../Api/endPoint';
 import useAuth from '../../hooks/useAuth';
 import {useNavigate} from 'react-router-dom';
@@ -14,6 +13,7 @@ const Login = () => {
   let [error, setError] = useState('');
   let [loading, setLoading] = useState(false);
   let nav = useNavigate();
+  // eslint-disable-next-line no-unused-vars
   let {user, setUser} = useContext(userContext);
   let cookie = new Cookies();
   function ChangeValue(e) {

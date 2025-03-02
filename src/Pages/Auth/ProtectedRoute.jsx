@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Cookies from 'universal-cookie';
-import Register from './register';
 import {Navigate, Outlet} from 'react-router-dom';
 
 const ProtectedRoute = () => {

@@ -8,6 +8,8 @@ import Dashboard from './Pages/Dashboard/Dashboard';
 import Users from './Layout/Users/Users';
 import EditUser from './Layout/EditUser';
 import AddNewUser from './Layout/AddNewUser';
+// eslint-disable-next-line no-unused-vars
+import bootstrap from '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
