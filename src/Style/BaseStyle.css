@@ -1,0 +1,9 @@
+:root {
+    --body-color:#1F1D2B;
+    --hover-shadow:0 0 10px #635AF1,
+        0 0 15px #584cf7,
+        0 0 20px #4a40ce;
+        --text-color:rgba(255, 255, 255, 0.7)
+}
+    
+

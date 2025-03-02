@@ -1,0 +1,21 @@
+.side-bar{
+    border-right: 2px solid #262432;
+    height: 100vh;
+}
+.side-bar-item{
+    cursor: pointer;
+    color:var(--text-color) ;
+    transition: 0.4s;
+    -webkit-transition: 0.4s;
+    -moz-transition: 0.4s;
+    -ms-transition: 0.4s;
+    -o-transition: 0.4s;
+}
+.side-bar-item:hover{
+    transform: translateY(-0.1rem);
+    text-shadow:var(--hover-shadow);
+    -webkit-transform: translateY(-0.1rem);
+    -moz-transform: translateY(-0.1rem);
+    -ms-transform: translateY(-0.1rem);
+    -o-transform: translateY(-0.1rem);
+}
