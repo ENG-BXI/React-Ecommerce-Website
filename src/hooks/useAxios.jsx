@@ -52,11 +52,49 @@ let useAxios = {
       data = response.data;
     } catch (err) {
       errorMessage = err;
-      console.log("From getCategory ===>", err);
+      console.log('From getCategory ===>', err);
     } finally {
       return {data, errorMessage};
     }
   },
+  getProducts: async path => {
+    let response;
+    let data;
+    let errorMessage;
+    try {
+      response = await axios.get(path, {
+        headers: {
+          Authorization: 'Bearer ' + cookie.get('Bearer')
+        }
+      });
+      data = response.data;
+    } catch (err) {
+      errorMessage = err;
+      console.log('From getProducts ===>', err);
+    } finally {
+      return {data, errorMessage};
+    }
+  },
+  getCategoryById: async path => {
+    let response, data, errorMessage;
+    try {
+      response = await axios.get(path, {
+        headers: {
+          Authorization: 'Bearer ' + cookie.get('Bearer')
+        }
+      });
+      data = response.data;
+    } catch (err) {
+      console.log('Form GetCategoryById ====>', err);
+      errorMessage = err.data;
+    } finally {
+      return {
+        data,
+        errorMessage
+      };
+    }
+  },
+  
   editUser: async (path, form) => {
     let errorMessage;
     try {
@@ -81,7 +119,37 @@ let useAxios = {
         }
       });
     } catch (err) {
-      console.log('from editUser ======> ', err);
+      console.log('from add New User ======> ', err);
+      errorMessage = err.data;
+    } finally {
+      return {errorMessage};
+    }
+  },
+  addNewCategory: async (path, form) => {
+    let errorMessage;
+    try {
+      await axios.post(path, form, {
+        headers: {
+          Authorization: 'Bearer ' + cookie.get('Bearer')
+        }
+      });
+    } catch (err) {
+      console.log('from add New Category ======> ', err);
+      errorMessage = err.data;
+    } finally {
+      return {errorMessage};
+    }
+  },
+  editCategory: async (path, form) => {
+    let errorMessage;
+    try {
+      await axios.post(path, form, {
+        headers: {
+          Authorization: 'Bearer ' + cookie.get('Bearer')
+        }
+      });
+    } catch (err) {
+      console.log('from edit Category ======> ', err);
       errorMessage = err.data;
     } finally {
       return {errorMessage};
@@ -97,6 +165,21 @@ let useAxios = {
       });
     } catch (err) {
       console.log('from deleteUser ======>', err);
+      errorMessage = err.data;
+    } finally {
+      return {errorMessage};
+    }
+  },
+  deleteCategory: async path => {
+    let errorMessage;
+    try {
+      await axios.delete(path, {
+        headers: {
+          Authorization: 'Bearer ' + cookie.get('Bearer')
+        }
+      });
+    } catch (err) {
+      console.log('from deleteCategory ======>', err);
       errorMessage = err.data;
     } finally {
       return {errorMessage};

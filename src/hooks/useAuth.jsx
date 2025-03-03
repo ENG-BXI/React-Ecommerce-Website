@@ -6,7 +6,7 @@ const useAuth = {
     let data;
     let errorMessage;
     try {
-      response = await await axios.post(path, {name: name, email: email, password: password});
+      response = await  axios.post(path, {name: name, email: email, password: password});
       data = response.data;
     } catch (err) {
       errorMessage = err.response.data.message;

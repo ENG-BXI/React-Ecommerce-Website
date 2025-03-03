@@ -8,11 +8,14 @@ import Dashboard from './Pages/Dashboard/Dashboard';
 import Users from './Layout/Users/Users';
 import EditUser from './Layout/EditUser';
 import AddNewUser from './Layout/AddNewUser';
-import Page403 from './Pages/Auth/page403';
 import ProtectedRole from './Pages/Auth/ProtectedRole';
 import Page404 from './Pages/Page404';
 import Category from './Layout/Category';
 import AddNewCategory from './Layout/AddNewCategory';
+import EditCategory from './Layout/EditCategory';
+import Products from './Layout/Products';
+import Page403 from './Pages/page403';
+import AddNewProducts from './Layout/AddNewProducts';
 
 function App() {
   return (
@@ -32,6 +35,9 @@ function App() {
                   <Route path='add-new-user' element={<AddNewUser />} />
                   <Route path='category' element={<Category />} />
                   <Route path='add-new-category' element={<AddNewCategory />} />
+                  <Route path='edit-category/:id' element={<EditCategory />} />
+                  <Route path='products' element={<Products />} />
+                  <Route path='add-new-product' element={<AddNewProducts />} />
                 </Route>
                 <Route element={<ProtectedRole roles={['5000']} />}>
                   <Route path='writer' element={<h3>writer</h3>} />

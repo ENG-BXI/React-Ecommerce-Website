@@ -13,15 +13,27 @@ let SideBarItemData = [
     role: ['1995']
   },
   {
-    icon: 'ri-store-2-line',
+    icon: 'ri-store-3-line',
     title: 'Category',
     path: 'category',
     role: ['1995', '1999']
   },
   {
-    icon: 'ri-store-2-line',
+    icon: 'ri-add-line',
     title: 'add New Category',
     path: 'add-new-category',
+    role: ['1995', '1999']
+  },
+  {
+    icon: 'ri-store-2-line',
+    title: 'Products',
+    path: 'products',
+    role: ['1995', '1999']
+  },
+  {
+    icon: 'ri-add-line',
+    title: 'add new Products',
+    path: 'add-new-product',
     role: ['1995', '1999']
   },
   {

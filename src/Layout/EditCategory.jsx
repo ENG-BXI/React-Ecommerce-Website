@@ -1,22 +1,32 @@
-import React, {useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {useNavigate, useParams} from 'react-router-dom';
 import useAxios from '../hooks/useAxios';
 import {BASEURL, CATEGORY} from '../Api/endPoint';
 
-const AddNewCategory = () => {
+const EditCategory = () => {
   let nav = useNavigate();
+
   let [title, setTitle] = useState('');
-  let [images, setImages] = useState([]);
+  let [image, setImage] = useState([]);
+  let {id} = useParams();
 
   function handleSubmit(e) {
-    let form = new FormData();
-    form.append("title", title);
-    form.append("image", images);
     e.preventDefault();
-    let {errorMessage} = useAxios.addNewCategory(`${BASEURL}/${CATEGORY}/add`,form);
+    let form = new FormData();
+    form.append('title', title);
+    form.append('image', image);
+    let {errorMessage} = useAxios.editCategory(`${BASEURL}/${CATEGORY}/edit/${id}`, form);
     if (!errorMessage) nav('/dashboard/category');
   }
-
+  async function getCategoryById() {
+    let {data} = await useAxios.getCategoryById(`${BASEURL}/${CATEGORY}/${id}`);
+    setTitle(data.title);
+    setImage(data.image);
+  }
+  useEffect(() => {
+    getCategoryById();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <div>
       <h2>Add New Category</h2>
@@ -34,11 +44,11 @@ const AddNewCategory = () => {
         <label className='form-label' htmlFor='email'>
           Image
         </label>
-        <input onChange={e => setImages(e.target.files.item(0))}   className='form-control bg-dark text-white border-dark' type='file' id='email' />
+        <input onChange={e => setImage(e.target.files.item(0))} className='form-control bg-dark text-white border-dark' type='file' id='email' />
         <button className='btn btn-light mt-3'>Done</button>
       </form>
     </div>
   );
 };
 
-export default AddNewCategory;
+export default EditCategory;
