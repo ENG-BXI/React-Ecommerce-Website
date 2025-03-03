@@ -5,18 +5,30 @@ import {userContext} from '../../../Context/userContext';
 
 let SideBarItemData = [
   {icon: 'ri-home-9-line', title: 'home', path: '', role: []},
-  {icon: 'ri-group-line', title: 'users', path: 'users', role: ['1991']},
+  {icon: 'ri-group-line', title: 'users', path: 'users', role: ['1995']},
   {
     icon: 'ri-user-add-line',
     title: 'add new user',
     path: 'add-new-user',
-    role: ['1991']
+    role: ['1995']
+  },
+  {
+    icon: 'ri-store-2-line',
+    title: 'Category',
+    path: 'category',
+    role: ['1995', '1999']
+  },
+  {
+    icon: 'ri-store-2-line',
+    title: 'add New Category',
+    path: 'add-new-category',
+    role: ['1995', '1999']
   },
   {
     icon: 'ri-macbook-line',
     title: 'writer',
     path: 'writer',
-    role: ['1991', '5000']
+    role: ['1995', '5000']
   }
 ];
 export default function SideBar() {

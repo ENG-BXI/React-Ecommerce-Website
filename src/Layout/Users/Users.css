@@ -1,15 +1,3 @@
-tbody tr {
-    transition: transform 0.4s;
-    -webkit-transition: transform 0.4s;
-    -moz-transition: transform 0.4s;
-    -ms-transition: transform 0.4s;
-    -o-transition: transform 0.4s;
-}
-
-tbody tr:hover {
-    text-shadow: var(--hover-shadow);
-}
-
 .edit-user,
 .delete-user {
     transition: .4s;

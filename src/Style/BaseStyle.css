@@ -1,13 +1,25 @@
 :root {
-    --body-color:#1F1D2B;
-    --hover-shadow:0 0 10px #635AF1,
+    --body-color: #1F1D2B;
+    --hover-shadow: 0 0 10px #635AF1,
         0 0 15px #584cf7,
         0 0 20px #4a40ce;
-        --text-color:rgba(255, 255, 255, 0.7);
-        --main-color: #635AF1;
+    --text-color: rgba(255, 255, 255, 0.7);
+    --main-color: #635AF1;
 }
-    
-.text-effect{
+
+tbody tr {
+    transition: transform 0.4s;
+    -webkit-transition: transform 0.4s;
+    -moz-transition: transform 0.4s;
+    -ms-transition: transform 0.4s;
+    -o-transition: transform 0.4s;
+}
+
+tbody tr:hover {
+    text-shadow: var(--hover-shadow);
+}
+
+.text-effect {
     animation: effect-text 2s ease-in-out infinite alternate !important;
     -webkit-animation: effect-text 2s ease-in-out infinite alternate !important;
 }

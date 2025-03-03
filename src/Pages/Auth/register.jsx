@@ -41,7 +41,7 @@ const Register = () => {
       if (cookie.get('Bearer')) cookie.remove('Bearer');
       cookie.set('Bearer', data.token);
       setUser(data);
-      let go = data.user.role === '1991' || data.user.role === '5000' ? '/dashboard' : '/';
+      let go = data.user.role === '1995' || data.user.role === '5000' ? '/dashboard' : '/';
       nav(go);
     }
     setLoading(false);
@@ -49,10 +49,10 @@ const Register = () => {
 
   useEffect(() => {
     if (cookie.get('Bearer')) {
-      let go = user.role === '1991' || user.role === '5000' ? '/dashboard' : '/';
+      let go = user.role === '1995' || user.role === '5000' ? '/dashboard' : '/';
       nav(go);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div className='container d-flex justify-content-center align-items-start column-gap-5 w-75 my-5 p-5 shadow-lg rounded-4'>

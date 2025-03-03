@@ -39,6 +39,24 @@ let useAxios = {
       return {data, errorMessage};
     }
   },
+  getCategory: async path => {
+    let response;
+    let data;
+    let errorMessage;
+    try {
+      response = await axios.get(path, {
+        headers: {
+          Authorization: 'Bearer ' + cookie.get('Bearer')
+        }
+      });
+      data = response.data;
+    } catch (err) {
+      errorMessage = err;
+      console.log("From getCategory ===>", err);
+    } finally {
+      return {data, errorMessage};
+    }
+  },
   editUser: async (path, form) => {
     let errorMessage;
     try {

@@ -40,7 +40,8 @@ const AddNewUser = () => {
               <label className='form-label' htmlFor="role">Role</label>
               <select onChange={(e)=>changeFormValue(e)} value={myForm.role} className='form-select bg-dark text-white border-dark' id="role" >
                   <option  value="2001">user</option>
-                  <option  value="1991">admin</option>
+                  <option  value="1995">admin</option>
+                  <option  value="1999">product manger</option>
                   <option  value="5000">writer</option>
               </select>
               <button className='btn btn-light mt-3'>Done</button>

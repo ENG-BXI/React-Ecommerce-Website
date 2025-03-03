@@ -28,7 +28,7 @@ const Login = () => {
       if (cookie.get('Bearer')) cookie.remove('Bearer');
       cookie.set('Bearer', data.token);
       setUser(data);
-      let go = data.user.role === '1991' || data.user.role === '5000' ? '/dashboard' : '/';
+      let go = data.user.role === '1995' || data.user.role === '5000' ? '/dashboard' : '/';
       console.log(go);
       console.log(data.user.role);
       
@@ -39,7 +39,7 @@ const Login = () => {
 
   useEffect(() => {
     if (cookie.get('Bearer')) {      
-        let go = user.role === '1991' || user.role === '5000' ? '/dashboard' : '/';
+        let go = user.role === '1995' || user.role === '5000' ? '/dashboard' : '/';
         nav(go);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps

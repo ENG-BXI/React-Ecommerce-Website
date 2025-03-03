@@ -44,7 +44,7 @@ const Users = () => {
                   <td>{element.name}</td>
                   <td>{element.email}</td>
                   <td>{element.created_at?.slice(0, 10)}</td>
-                  <td>{element.role === '1991' ? 'Admin' : element.role === '2001' ? 'User' : 'Writer'}</td>
+                  <td>{element.role === '1995' ? 'Admin' : element.role === '2001' ? 'User' : element.role === '1999' ? 'Product manger' : 'Writer'}</td>
                   <td>
                     <div className='d-flex column-gap-3'>
                       <Link className='edit-user' to={`/dashboard/edit-user/${element.id}`}>

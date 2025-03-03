@@ -5,4 +5,5 @@ export const USERS = 'users';
 export const USER = 'user';
 export const EDITUSER = 'user/edit';
 export const ADDNEWUSER = 'user/add';
+export const CATEGORY = 'categories';
 export const LOGOUT = 'logout';

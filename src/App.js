@@ -11,6 +11,8 @@ import AddNewUser from './Layout/AddNewUser';
 import Page403 from './Pages/Auth/page403';
 import ProtectedRole from './Pages/Auth/ProtectedRole';
 import Page404 from './Pages/Page404';
+import Category from './Layout/Category';
+import AddNewCategory from './Layout/AddNewCategory';
 
 function App() {
   return (
@@ -20,7 +22,7 @@ function App() {
           <Route path='/register' element={<Register />} />
           <Route path='/login' element={<Login />} />
           <Route path='/' element={<Home />} />
-          <Route path='/*' element={<Page404/>} />
+          <Route path='/*' element={<Page404 />} />
           <Route element={<ProtectedRoute />}>
             <Route element={<ProtectedRole roles={['5000']} />}>
               <Route path='/dashboard' element={<Dashboard />}>
@@ -28,6 +30,8 @@ function App() {
                   <Route path='users' element={<Users />} />
                   <Route path='edit-user/:id' element={<EditUser />} />
                   <Route path='add-new-user' element={<AddNewUser />} />
+                  <Route path='category' element={<Category />} />
+                  <Route path='add-new-category' element={<AddNewCategory />} />
                 </Route>
                 <Route element={<ProtectedRole roles={['5000']} />}>
                   <Route path='writer' element={<h3>writer</h3>} />
