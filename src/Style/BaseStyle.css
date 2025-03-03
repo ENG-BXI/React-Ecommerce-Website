@@ -3,7 +3,72 @@
     --hover-shadow:0 0 10px #635AF1,
         0 0 15px #584cf7,
         0 0 20px #4a40ce;
-        --text-color:rgba(255, 255, 255, 0.7)
+        --text-color:rgba(255, 255, 255, 0.7);
+        --main-color: #635AF1;
 }
     
+.text-effect{
+    animation: effect-text 2s ease-in-out infinite alternate !important;
+    -webkit-animation: effect-text 2s ease-in-out infinite alternate !important;
+}
 
+@keyframes effect-text {
+
+    0% {
+        text-shadow: 0 0 3px var(--main-color),
+            0 0 5px var(--main-color);
+    }
+
+    20% {
+        text-shadow: 0 0 3px var(--main-color),
+            0 0 5px var(--main-color),
+            0 0 10px var(--main-color);
+    }
+
+    40% {
+        text-shadow: 0 0 2px var(--main-color);
+    }
+
+    50% {
+        text-shadow: 0 0 0px var(--main-color),
+            0 0 0px var(--main-color);
+    }
+
+    55% {
+        text-shadow: 0 0 5px var(--main-color),
+            0 0 7px var(--main-color);
+    }
+
+    60% {
+        text-shadow: 0 0 10px var(--main-color),
+            0 0 15px var(--main-color);
+    }
+
+    61% {
+        text-shadow: 0 0 0px var(--main-color),
+            0 0 0px var(--main-color);
+    }
+
+    63% {
+        text-shadow: 0 0 10px var(--main-color),
+            0 0 15px var(--main-color);
+    }
+
+    66% {
+        text-shadow: 0 0 0px var(--main-color),
+            0 0 0px var(--main-color);
+    }
+
+    70% {
+        text-shadow: 0 0 5px var(--main-color),
+            0 0 10px var(--main-color),
+            0 0 15px var(--main-color);
+    }
+
+    80% {
+        text-shadow: 0 0 5px var(--main-color),
+            0 0 10px var(--main-color),
+            0 0 15px var(--main-color),
+            0 0 20px var(--main-color);
+    }
+}

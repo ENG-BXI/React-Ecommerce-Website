@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import RegisterImage from '../../assets/registerImage.svg';
 import {BASEURL, REGISTER} from '../../Api/endPoint';
 import {useNavigate} from 'react-router-dom';
@@ -38,15 +38,22 @@ const Register = () => {
     if (errorMessage) {
       setError(errorMessage);
     } else {
-      setUser(data);
+      if (cookie.get('Bearer')) cookie.remove('Bearer');
       cookie.set('Bearer', data.token);
-      nav('/');
+      setUser(data);
+      let go = data.user.role === '1991' || data.user.role === '5000' ? '/dashboard' : '/';
+      nav(go);
     }
     setLoading(false);
   }
-  function goToLogin() {
-    nav('/login');
-  }
+
+  useEffect(() => {
+    if (cookie.get('Bearer')) {
+      let go = user.role === '1991' || user.role === '5000' ? '/dashboard' : '/';
+      nav(go);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <div className='container d-flex justify-content-center align-items-start column-gap-5 w-75 my-5 p-5 shadow-lg rounded-4'>
       <div style={{flex: '1'}}>
@@ -73,7 +80,7 @@ const Register = () => {
           </label>
           <input className='form-control' type='password' id='passwordR' required minLength={6} value={passwordR} onChange={e => setPasswordR(e.target.value)} />
           {error !== '' && <p className='bg-danger-subtle p-2 mt-2 mb-0 rounded-3 text-danger'>{error}</p>}
-          <p className='text-end mx-2 my-1 text-primary' onClick={goToLogin} style={{cursor: 'pointer'}}>
+          <p className='text-end mx-2 my-1 text-primary' onClick={() => nav('/login')} style={{cursor: 'pointer'}}>
             Login
           </p>
           <button className='btn w-100 btn-primary mt-2'>{loading ? <span className='loading-button'></span> : 'Register'}</button>

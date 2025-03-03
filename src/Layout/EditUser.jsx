@@ -27,12 +27,16 @@ const EditUser = () => {
   }
 
  async function getUser() {
-    let { data } = await useAxios.getUser(`${BASEURL}/${USER}/${id}`);
+   let { data, errorMessage } = await useAxios.getUser(`${BASEURL}/${USER}/${id}`);
+   if(!errorMessage)
    setForm({...myForm,
      name: data.name,
      email: data.email,
      role: data.role
    })
+   else {
+     nav("/page404")
+   }
   }
   useEffect(() => {
     getUser();

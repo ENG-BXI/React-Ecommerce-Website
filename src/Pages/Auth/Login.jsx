@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import RegisterImage from '../../assets/registerImage.svg';
 import {BASEURL, LOGIN} from '../../Api/endPoint';
 import useAuth from '../../hooks/useAuth';
@@ -13,8 +13,7 @@ const Login = () => {
   let [error, setError] = useState('');
   let [loading, setLoading] = useState(false);
   let nav = useNavigate();
-  // eslint-disable-next-line no-unused-vars
-  let {user, setUser} = useContext(userContext);
+  let {user,setUser} = useContext(userContext);
   let cookie = new Cookies();
   function ChangeValue(e) {
     setForm({...form, [e.target.id]: e.target.value});
@@ -26,16 +25,25 @@ const Login = () => {
     if (errorMessage) {
       setError(errorMessage);
     } else {
-      setUser(data);
+      if (cookie.get('Bearer')) cookie.remove('Bearer');
       cookie.set('Bearer', data.token);
-      nav('/');
+      setUser(data);
+      let go = data.user.role === '1991' || data.user.role === '5000' ? '/dashboard' : '/';
+      console.log(go);
+      console.log(data.user.role);
+      
+      nav(go);
     }
     setLoading(false);
   }
 
-  function goToRegister() {
-    nav('/register');
-  }
+  useEffect(() => {
+    if (cookie.get('Bearer')) {      
+        let go = user.role === '1991' || user.role === '5000' ? '/dashboard' : '/';
+        nav(go);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
   return (
     <div className='container d-flex justify-content-center align-items-center column-gap-5 w-75 my-5 p-5 shadow-lg rounded-4'>
       <div style={{flex: '1'}}>
@@ -61,7 +69,7 @@ const Login = () => {
           <input className='form-control' type='password' required minLength={6} id='password' value={form.password} onChange={e => ChangeValue(e)} />
           {/*  */}
           {error !== '' && <p className='bg-danger-subtle p-2 mt-2 mb-0 rounded-3 text-danger'>{error}</p>}
-          <p className='text-end mx-2 my-1 text-primary' onClick={goToRegister} style={{cursor: 'pointer'}}>
+          <p className='text-end mx-2 my-1 text-primary' onClick={() => nav('/register')} style={{cursor: 'pointer'}}>
             Register Now
           </p>
           <button className='btn w-100 btn-primary mt-2'>{loading ? <span className='loading-button'></span> : 'Login'}</button>

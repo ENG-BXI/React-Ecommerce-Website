@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 let cookie = new Cookies();
-let token = cookie.get("Bearer");
+
 let useAxios = {
   getUser: async path => {
     let response;
@@ -10,13 +10,13 @@ let useAxios = {
     try {
       response = await axios.get(path, {
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${cookie.get('Bearer')}`
         }
       });
       data = response.data;
     } catch (err) {
       errorMessage = err.response;
-      console.log('Error form GetUsers =========', err);
+      console.log('Error form GetUser =========', err);
     } finally {
       return {data, errorMessage};
     }
@@ -28,7 +28,7 @@ let useAxios = {
     try {
       response = await axios.get(path, {
         headers: {
-          Authorization: 'Bearer ' + token
+          Authorization: 'Bearer ' + cookie.get('Bearer')
         }
       });
       data = response.data;
@@ -44,7 +44,7 @@ let useAxios = {
     try {
       await axios.post(path, form, {
         headers: {
-          Authorization: 'Bearer ' + token
+          Authorization: 'Bearer ' + cookie.get('Bearer')
         }
       });
     } catch (err) {
@@ -59,7 +59,7 @@ let useAxios = {
     try {
       await axios.post(path, form, {
         headers: {
-          Authorization: 'Bearer ' + token
+          Authorization: 'Bearer ' + cookie.get('Bearer')
         }
       });
     } catch (err) {
@@ -70,17 +70,32 @@ let useAxios = {
     }
   },
   deleteUser: async path => {
-
     let errorMessage;
     try {
       await axios.delete(path, {
         headers: {
-          Authorization: 'Bearer ' + token
+          Authorization: 'Bearer ' + cookie.get('Bearer')
         }
       });
     } catch (err) {
       console.log('from deleteUser ======>', err);
       errorMessage = err.data;
+    } finally {
+      return {errorMessage};
+    }
+  },
+  logOut: async path => {
+    let errorMessage;
+    try {
+      await axios.get(path, {
+        headers: {
+          Authorization: `Bearer ${cookie.get('Bearer')}`
+        }
+      });
+      cookie.remove('Bearer');
+    } catch (err) {
+      console.log('From LogOut ====> ', err);
+      errorMessage = err;
     } finally {
       return {errorMessage};
     }
