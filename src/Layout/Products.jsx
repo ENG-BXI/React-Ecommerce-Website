@@ -28,7 +28,6 @@ const Products = () => {
         <thead>
           <tr>
             <th>ID</th>
-            <th>CATEGORY</th>
             <th>TITLE</th>
             <th>DESCRIPTION</th>
             <th>PRICE</th>
@@ -43,12 +42,11 @@ const Products = () => {
               return (
                 <tr key={index}>
                   <td>{element.id}</td>
-                  <td>{element.category}</td>
                   <td>{element.title}</td>
                   <td>{element.description}</td>
                   <td>{element.price}</td>
                   <td>{element.discount}</td>
-                  <td>{element.about}</td>
+                  <td>{element.About}</td>
                   <td>
                     <div className='d-flex column-gap-3'>
                       <Link className='edit-user' to={`/dashboard/edit-product/${element.id}`}>

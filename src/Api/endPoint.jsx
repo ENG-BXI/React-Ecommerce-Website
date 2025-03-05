@@ -7,5 +7,6 @@ export const EDITUSER = 'user/edit';
 export const ADDNEWUSER = 'user/add';
 export const CATEGORIES = 'categories';
 export const PRODUCTS = 'products';
+export const PRODUCT = 'product';
 export const CATEGORY = 'category';
 export const LOGOUT = 'logout';

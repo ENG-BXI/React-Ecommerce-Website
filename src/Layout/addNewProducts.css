@@ -1,0 +1,20 @@
+.inner-progress {
+    background-color: var(--main-color);
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+
+.inner-progress::after {
+    content: attr(percent);
+    background-color: gray;
+    position: absolute;
+    bottom: 50px;
+    width: 40px;
+    height: 20px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}

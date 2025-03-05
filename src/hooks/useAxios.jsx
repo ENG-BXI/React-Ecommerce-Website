@@ -94,7 +94,7 @@ let useAxios = {
       };
     }
   },
-  
+
   editUser: async (path, form) => {
     let errorMessage;
     try {
@@ -125,6 +125,21 @@ let useAxios = {
       return {errorMessage};
     }
   },
+  addProductImages: async (path, form) => {
+    let errorMessage;
+    try {
+      await axios.post(path, form, {
+        headers: {
+          Authorization: 'Bearer ' + cookie.get('Bearer'),
+        }
+      });
+    } catch (err) {
+      console.log('from add New Image ======> ', err);
+      errorMessage = err.data;
+    } finally {
+      return {errorMessage};
+    }
+  },
   addNewCategory: async (path, form) => {
     let errorMessage;
     try {
@@ -138,6 +153,25 @@ let useAxios = {
       errorMessage = err.data;
     } finally {
       return {errorMessage};
+    }
+  },
+  addNewProduct: async (path, form) => {
+    let response, errorMessage, data;
+    try {
+      response = await axios.post(path, form, {
+        headers: {
+          Authorization: 'Bearer ' + cookie.get('Bearer')
+        },
+        onUploadProgress: progressEvent => {
+          console.log(progressEvent);
+        }
+      });
+      data = response.data;
+    } catch (err) {
+      console.log('from addNewProduct ======> ', err);
+      errorMessage = err.data;
+    } finally {
+      return {data, errorMessage};
     }
   },
   editCategory: async (path, form) => {
