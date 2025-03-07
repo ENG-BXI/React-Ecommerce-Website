@@ -35,12 +35,6 @@ let SideBarItemData = [
     title: 'add new Products',
     path: 'add-new-product',
     role: ['1995', '1999']
-  },
-  {
-    icon: 'ri-macbook-line',
-    title: 'writer',
-    path: 'writer',
-    role: ['1995', '5000']
   }
 ];
 export default function SideBar() {

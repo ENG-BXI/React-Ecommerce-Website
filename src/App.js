@@ -16,6 +16,7 @@ import EditCategory from './Layout/EditCategory';
 import Products from './Layout/Products';
 import Page403 from './Pages/page403';
 import AddNewProducts from './Layout/AddNewProducts';
+import EditProduct from './Layout/EditProduct';
 
 function App() {
   return (
@@ -38,9 +39,7 @@ function App() {
                   <Route path='edit-category/:id' element={<EditCategory />} />
                   <Route path='products' element={<Products />} />
                   <Route path='add-new-product' element={<AddNewProducts />} />
-                </Route>
-                <Route element={<ProtectedRole roles={['5000']} />}>
-                  <Route path='writer' element={<h3>writer</h3>} />
+                  <Route path='edit-product/:id' element={<EditProduct/>} />
                 </Route>
                 <Route path='page403' element={<Page403 />} />
               </Route>

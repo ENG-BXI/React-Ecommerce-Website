@@ -57,6 +57,24 @@ let useAxios = {
       return {data, errorMessage};
     }
   },
+  getProduct: async path => {
+    let response;
+    let data;
+    let errorMessage;
+    try {
+      response = await axios.get(path, {
+        headers: {
+          Authorization: 'Bearer ' + cookie.get('Bearer')
+        }
+      });
+      data = response.data;
+    } catch (err) {
+      errorMessage = err;
+      console.log('From Get Product ===>', err);
+    } finally {
+      return {data, errorMessage};
+    }
+  },
   getProducts: async path => {
     let response;
     let data;
@@ -130,7 +148,7 @@ let useAxios = {
     try {
       await axios.post(path, form, {
         headers: {
-          Authorization: 'Bearer ' + cookie.get('Bearer'),
+          Authorization: 'Bearer ' + cookie.get('Bearer')
         }
       });
     } catch (err) {
@@ -214,6 +232,21 @@ let useAxios = {
       });
     } catch (err) {
       console.log('from deleteCategory ======>', err);
+      errorMessage = err.data;
+    } finally {
+      return {errorMessage};
+    }
+  },
+  deleteProduct: async path => {
+    let errorMessage;
+    try {
+      await axios.delete(path, {
+        headers: {
+          Authorization: 'Bearer ' + cookie.get('Bearer')
+        }
+      });
+    } catch (err) {
+      console.log('from deleteProduct ======>', err);
       errorMessage = err.data;
     } finally {
       return {errorMessage};

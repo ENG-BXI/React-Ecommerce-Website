@@ -1,59 +1,46 @@
 import React, {useEffect, useRef, useState} from 'react';
 import useAxios from '../hooks/useAxios';
 import {BASEURL, CATEGORIES, PRODUCT} from '../Api/endPoint';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import './addNewProducts.css';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
-const AddNewProducts = () => {
+const EditProduct = () => {
   let [form, setForm] = useState({
-    category: 'Select Category',
+    category: '',
     title: '',
     description: '',
     price: '',
     discount: '',
     About: ''
   });
-  let [category, setCategory] = useState([]);
   let [images, setImages] = useState([]);
   let nav = useNavigate();
-  let clickUpload = useRef(null);
-  let [openInput, setOpenInput] = useState(false);
-  let [id, setId] = useState(null);
+  const {id} = useParams();
   let cookie = new Cookies();
   let refProgress = useRef([]);
   let ids = useRef([]);
+  let [category, setCategory] = useState([]);
+  let [imageFormServer, setImageFormServer] = useState([]);
+  const [imageIdFromSever, setImageIdFromSever] = useState([]);
+  let clickUpload = useRef(null);
 
+  useEffect(() => {
+    getCategory();
+    getProduct();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  async function ChangeForm(e) {
+    setForm({...form, [e.target.id]: e.target.value});
+  }
   async function getCategory() {
     let {data, errorMessage} = await useAxios.getCategory(`${BASEURL}/${CATEGORIES}`);
     if (!errorMessage) setCategory(data);
   }
-  let dummyData = {
-    category: null,
-    title: 'null',
-    description: 'null',
-    price: '0',
-    discount: '0',
-    About: 'null'
-  };
-  useEffect(() => {
-    getCategory();
-  }, []);
-  async function ChangeForm(e) {
-    setForm({...form, [e.target.id]: e.target.value});
-    setOpenInput(true);
-    if (!openInput) {
-      let {data, errorMessage} = await useAxios.addNewProduct(`${BASEURL}/${PRODUCT}/add`, dummyData);
-      if (!errorMessage) setId(data.id);
-    }
-  }
-
   let count = useRef(-1);
   async function HandleChangeImage(e) {
     let images = [...e.target.files];
     setImages(pre => [...pre, ...images]);
-    console.log(images);
-
     let formData = new FormData();
     for (let index = 0; index < images.length; index++) {
       count.current++;
@@ -72,14 +59,19 @@ const AddNewProducts = () => {
           }
         });
         ids.current[count.current] = res.data.id;
-        console.log(ids.current);
       } catch (err) {
         console.log(err);
       }
     }
   }
-
-  async function addProduct(e) {
+  async function getProduct() {
+    let {data, errorMessage} = await useAxios.getProduct(`${BASEURL}/${PRODUCT}/${id}`);
+    if (!errorMessage) {
+      setForm(data[0]);
+      setImageFormServer(data[0].images);
+    }
+  }
+  async function editProduct(e) {
     e.preventDefault();
     let formData = new FormData();
     formData.append('category', form.category);
@@ -88,6 +80,15 @@ const AddNewProducts = () => {
     formData.append('price', form.price);
     formData.append('discount', form.discount);
     formData.append('About', form.About);
+    let token = cookie.get('Bearer');
+    for (let index = 0; index < imageIdFromSever.length; index++) {
+      try {
+        await axios.delete(`${BASEURL}/product-img/${imageIdFromSever[index]}`, {headers: {Authorization: 'Bearer ' + token}});
+      } catch (err) {
+        console.log('error Here');
+      }
+    }
+    setImageIdFromSever([]);
     let {errorMessage} = await useAxios.addNewProduct(`${BASEURL}/${PRODUCT}/edit/${id}`, formData);
     if (!errorMessage) nav('/dashboard/products');
   }
@@ -97,29 +98,24 @@ const AddNewProducts = () => {
     count.current--;
     setImages(images => images.filter(img => img !== element));
     try {
-      let res = await axios.delete(`${BASEURL}/product-img/${index}`, {headers: {Authorization: 'Bearer ' + cookie.get('Bearer')}});
-      console.log(res);
-      console.log('delete ok');
-      console.log(images);
-      console.log(ids);
-      console.log(refProgress);
+       await axios.delete(`${BASEURL}/product-img/${index}`, {headers: {Authorization: 'Bearer ' + cookie.get('Bearer')}});
     } catch (err) {
       console.log('error Here');
     }
     console.log(element);
   }
-
+  function deleteImageFromServer(id) {
+    setImageIdFromSever((prev) => [...prev, id]);
+    setImageFormServer(pre=>pre.filter((element)=>element.id !== id))
+  }  
   return (
     <div>
-      <h2>Add New Product</h2>
-      <form onSubmit={e => addProduct(e)}>
+      <h2>Edit Product</h2>
+      <form onSubmit={e => editProduct(e)}>
         <label className='form-label' htmlFor='category'>
           Category
         </label>
         <select value={form.category} onChange={e => ChangeForm(e)} name='category' className='form-select text-white bg-dark border-dark mb-3' id='category'>
-          <option disabled value='Select Category'>
-            Select Category
-          </option>
           {category.length > 0 &&
             category.map((element, index) => (
               <option key={index} value={element.id}>
@@ -131,40 +127,53 @@ const AddNewProducts = () => {
         <label className='form-label' htmlFor='title'>
           Title
         </label>
-        <input disabled={!openInput} type='text' id='title' value={form.title} onChange={e => ChangeForm(e)} className='form-control bg-dark text-white border-dark mb-3' required />
+        <input type='text' id='title' value={form.title} onChange={e => ChangeForm(e)} className='form-control bg-dark text-white border-dark mb-3' required />
 
         <label className='form-label' htmlFor='description'>
           Description
         </label>
-        <input disabled={!openInput} type='text' id='description' value={form.description} onChange={e => ChangeForm(e)} className='form-control bg-dark text-white border-dark mb-3' required />
+        <input type='text' id='description' value={form.description} onChange={e => ChangeForm(e)} className='form-control bg-dark text-white border-dark mb-3' required />
 
         <label className='form-label' htmlFor='price'>
           Price
         </label>
-        <input disabled={!openInput} type='number' id='price' value={form.price} onChange={e => ChangeForm(e)} className='form-control bg-dark text-white border-dark mb-3' required />
+        <input type='number' id='price' value={form.price} onChange={e => ChangeForm(e)} className='form-control bg-dark text-white border-dark mb-3' required />
 
         <label className='form-label' htmlFor='discount'>
           Discount
         </label>
-        <input disabled={!openInput} type='number' id='discount' value={form.discount} onChange={e => ChangeForm(e)} className='form-control bg-dark text-white border-dark mb-3' />
+        <input type='number' id='discount' value={form.discount} onChange={e => ChangeForm(e)} className='form-control bg-dark text-white border-dark mb-3' />
 
         <label className='form-label' htmlFor='About'>
           About
         </label>
-        <input disabled={!openInput} type='text' id='About' value={form.About} onChange={e => ChangeForm(e)} className='form-control bg-dark text-white border-dark mb-3' />
+        <input type='text' id='About' value={form.About} onChange={e => ChangeForm(e)} className='form-control bg-dark text-white border-dark mb-3' />
 
         <label className='form-label' htmlFor='images'>
           Images
         </label>
-        <input disabled={!openInput} type='file' id='images' ref={clickUpload} multiple hidden onChange={e => HandleChangeImage(e)} className='form-control bg-dark text-white border-dark mb-3' />
-        <div
-          onClick={() => {
-            clickUpload.current.click();
-          }}
-          style={{height: '200px', border: '2px dashed', cursor: openInput ? 'pointer' : 'not-allowed'}}
-          className='d-flex align-items-center my-3 justify-content-center'
-        >
-          <h2 className={`${openInput && 'text-effect'}`}>Upload Image</h2>
+        <input type='file' ref={clickUpload} id='images' multiple hidden onChange={e => HandleChangeImage(e)} className='form-control bg-dark text-white border-dark mb-3' />
+        <div onClick={()=>{clickUpload.current.click()}} style={{height: '200px', border: '2px dashed', cursor: 'pointer'}} className='d-flex align-items-center my-3 justify-content-center'>
+          <h2 className={`${'text-effect'}`}>Upload Image</h2>
+        </div>
+        <div className='d-flex gap-3 mb-4 flex-wrap '>
+          {imageFormServer.map((element, index) => {
+            return (
+              <div key={index} className='position-relative'>
+                <img width={'150px'} src={element.image} alt='ImageFormServer' />
+                <button
+                  onClick={() => {
+                    deleteImageFromServer(element.id);
+                  }}
+                  style={{top: '0', right: '0'}}
+                  type='button'
+                  className='btn position-absolute z-2 btn-danger px-1 py-0'
+                >
+                  x
+                </button>
+              </div>
+            );
+          })}
         </div>
         {images.length > 0 &&
           images.map((element, index) => {
@@ -194,4 +203,4 @@ const AddNewProducts = () => {
   );
 };
 
-export default AddNewProducts;
+export default EditProduct;

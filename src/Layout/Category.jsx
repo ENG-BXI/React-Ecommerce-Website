@@ -2,21 +2,29 @@
 import React, {useEffect, useState} from 'react';
 import useAxios from '../hooks/useAxios';
 import {BASEURL, CATEGORIES, CATEGORY} from '../Api/endPoint';
-import {Link} from 'react-router-dom';
+import {data, Link} from 'react-router-dom';
+import PaginatedItems from '../Components/Dashboard/Pagination/Pagination';
 
 const Category = () => {
   let [category, setCategory] = useState([]);
   let [loading, setLoading] = useState(true);
+  let numberOfRow = 5;
+  let [page, setPage] = useState(1);
+  let [numberOfPage , setNumberOfPages] = useState(0);
+  let dataAfterPaginate = [];
   async function getCategory() {
     // to solve the getCategory before store Image in backend
     // this is a temp fixed now
     setTimeout(async () => {
       let {data, errorMessage} = await useAxios.getCategory(`${BASEURL}/${CATEGORIES}`);
       if (!errorMessage) {
-        setCategory(data);
+   dataAfterPaginate = data.slice((page - 1) * numberOfRow, page * numberOfRow);
+        setNumberOfPages(Math.ceil(data.length / numberOfRow));
+        setCategory(dataAfterPaginate);
         setLoading(false);
       }
     }, 1000);
+    
   }
   async function deleteCategory(id) {
     let {errorMessage} = await useAxios.deleteCategory(`${BASEURL}/${CATEGORY}/${id}`);
@@ -24,7 +32,7 @@ const Category = () => {
   }
   useEffect(() => {
     getCategory();
-  }, []);
+  }, [page]);
   return (
     <div>
       <h2>Category</h2>
@@ -66,6 +74,7 @@ const Category = () => {
           )}
         </tbody>
       </table>
+      <PaginatedItems PageCount={numberOfPage} setPage={setPage} />
     </div>
   );
 };

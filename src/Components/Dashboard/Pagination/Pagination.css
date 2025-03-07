@@ -1,0 +1,21 @@
+.point a{
+    height: 40px;
+    width: 40px;
+    display: block;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 40px;
+    -webkit-border-radius: 40px;
+    -moz-border-radius: 40px;
+    -ms-border-radius: 40px;
+    -o-border-radius: 40px;
+}
+.previous a,.next a{
+    display: block;
+    height: 40px;
+    width: 40px;
+    color: wheat;
+    text-align: center;
+    line-height: 35px;
+    text-decoration: none;
+}
