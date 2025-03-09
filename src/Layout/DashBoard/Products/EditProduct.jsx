@@ -1,10 +1,10 @@
 import React, {useEffect, useRef, useState} from 'react';
-import useAxios from '../hooks/useAxios';
-import {BASEURL, CATEGORIES, PRODUCT} from '../Api/endPoint';
 import {useNavigate, useParams} from 'react-router-dom';
 import './addNewProducts.css';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
+import useAxios from '../../../hooks/useAxios';
+import { BASEURL, CATEGORIES, PRODUCT } from '../../../Api/endPoint';
 const EditProduct = () => {
   let [form, setForm] = useState({
     category: '',
@@ -34,7 +34,8 @@ const EditProduct = () => {
     setForm({...form, [e.target.id]: e.target.value});
   }
   async function getCategory() {
-    let {data, errorMessage} = await useAxios.getCategory(`${BASEURL}/${CATEGORIES}`);
+    let { data, errorMessage } = await useAxios.getCategory(`${BASEURL}/${CATEGORIES}`);
+    console.log(data);
     if (!errorMessage) setCategory(data);
   }
   let count = useRef(-1);
@@ -142,7 +143,7 @@ const EditProduct = () => {
         <label className='form-label' htmlFor='discount'>
           Discount
         </label>
-        <input type='number' id='discount' value={form.discount} onChange={e => ChangeForm(e)} className='form-control bg-dark text-white border-dark mb-3' />
+        <input type='number' id='discount'  value={form.discount} onChange={e => ChangeForm(e)} className='form-control bg-dark text-white border-dark mb-3' />
 
         <label className='form-label' htmlFor='About'>
           About
@@ -153,7 +154,13 @@ const EditProduct = () => {
           Images
         </label>
         <input type='file' ref={clickUpload} id='images' multiple hidden onChange={e => HandleChangeImage(e)} className='form-control bg-dark text-white border-dark mb-3' />
-        <div onClick={()=>{clickUpload.current.click()}} style={{height: '200px', border: '2px dashed', cursor: 'pointer'}} className='d-flex align-items-center my-3 justify-content-center'>
+        <div
+          onClick={() => {
+            clickUpload.current.click();
+          }}
+          style={{height: '200px', border: '2px dashed', cursor: 'pointer'}}
+          className='d-flex align-items-center my-3 justify-content-center'
+        >
           <h2 className={`${'text-effect'}`}>Upload Image</h2>
         </div>
         <div className='d-flex gap-3 mb-4 flex-wrap '>

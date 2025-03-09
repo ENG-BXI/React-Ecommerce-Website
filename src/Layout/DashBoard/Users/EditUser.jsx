@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import useAxios from '../hooks/useAxios';
-import { BASEURL, EDITUSER, USER } from '../Api/endPoint';
+import useAxios from '../../../hooks/useAxios';
+import {BASEURL, EDITUSER, USER} from '../../../Api/endPoint';
 import {  useNavigate, useParams } from 'react-router-dom';
 
 const EditUser = () => {

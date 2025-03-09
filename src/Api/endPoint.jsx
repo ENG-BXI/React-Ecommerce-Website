@@ -8,5 +8,7 @@ export const ADDNEWUSER = 'user/add';
 export const CATEGORIES = 'categories';
 export const PRODUCTS = 'products';
 export const PRODUCT = 'product';
+export const LASTPRODUCT = 'latest-sale';
+export const TOPRATED = 'top-rated';
 export const CATEGORY = 'category';
 export const LOGOUT = 'logout';

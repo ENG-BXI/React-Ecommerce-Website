@@ -1,22 +1,23 @@
 import {Route, Routes} from 'react-router-dom';
 import Login from './Pages/Auth/Login';
-import Home from './Pages/Home';
 import Register from './Pages/Auth/register';
 import {ProviderUserContext} from './Context/userContext';
 import ProtectedRoute from './Pages/Auth/ProtectedRoute';
 import Dashboard from './Pages/Dashboard/Dashboard';
-import Users from './Layout/Users/Users';
-import EditUser from './Layout/EditUser';
-import AddNewUser from './Layout/AddNewUser';
+import Users from './Layout/DashBoard/Users/Users';
+import AddNewUser from './Layout/DashBoard/Users/AddNewUser';
 import ProtectedRole from './Pages/Auth/ProtectedRole';
 import Page404 from './Pages/Page404';
-import Category from './Layout/Category';
-import AddNewCategory from './Layout/AddNewCategory';
-import EditCategory from './Layout/EditCategory';
-import Products from './Layout/Products';
+import Category from './Layout/DashBoard/Categorys/Category';
+import AddNewCategory from './Layout/DashBoard/Categorys/AddNewCategory';
+import EditCategory from './Layout/DashBoard/Categorys/EditCategory';
 import Page403 from './Pages/page403';
-import AddNewProducts from './Layout/AddNewProducts';
-import EditProduct from './Layout/EditProduct';
+import AddNewProducts from './Layout/DashBoard/Products/AddNewProducts';
+import Website from './Pages/Website/Website';
+import Home from './Layout/Website/Home';
+import EditUser from './Layout/DashBoard/Users/EditUser';
+import EditProduct from './Layout/DashBoard/Products/EditProduct';
+import Products from './Layout/DashBoard/Products/Products';
 
 function App() {
   return (
@@ -25,7 +26,9 @@ function App() {
         <Routes>
           <Route path='/register' element={<Register />} />
           <Route path='/login' element={<Login />} />
-          <Route path='/' element={<Home />} />
+          <Route path='/' element={<Website />} >
+            <Route path="/" element={<Home/>} />  
+          </Route>
           <Route path='/*' element={<Page404 />} />
           <Route element={<ProtectedRoute />}>
             <Route element={<ProtectedRole roles={['5000']} />}>
@@ -39,7 +42,7 @@ function App() {
                   <Route path='edit-category/:id' element={<EditCategory />} />
                   <Route path='products' element={<Products />} />
                   <Route path='add-new-product' element={<AddNewProducts />} />
-                  <Route path='edit-product/:id' element={<EditProduct/>} />
+                  <Route path='edit-product/:id' element={<EditProduct />} />
                 </Route>
                 <Route path='page403' element={<Page403 />} />
               </Route>

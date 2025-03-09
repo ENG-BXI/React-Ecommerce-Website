@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
-import useAxios from '../hooks/useAxios';
-import {BASEURL, CATEGORIES, PRODUCT} from '../Api/endPoint';
+import useAxios from '../../../hooks/useAxios';
+import {BASEURL, CATEGORIES, PRODUCT} from '../../../Api/endPoint';
 import {useNavigate} from 'react-router-dom';
 import './addNewProducts.css';
 import axios from 'axios';
@@ -26,6 +26,8 @@ const AddNewProducts = () => {
 
   async function getCategory() {
     let {data, errorMessage} = await useAxios.getCategory(`${BASEURL}/${CATEGORIES}`);
+    console.log(data);
+
     if (!errorMessage) setCategory(data);
   }
   let dummyData = {

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
-import useAxios from '../hooks/useAxios';
-import {BASEURL, CATEGORY} from '../Api/endPoint';
+import useAxios from '../../../hooks/useAxios';
+import {BASEURL, CATEGORY} from '../../../Api/endPoint';
 
 const EditCategory = () => {
   let nav = useNavigate();
@@ -25,7 +25,7 @@ const EditCategory = () => {
   }
   useEffect(() => {
     getCategoryById();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div>

@@ -1,23 +1,22 @@
 /* eslint-disable no-unused-vars */
 import React, {useEffect, useState} from 'react';
-import useAxios from '../hooks/useAxios';
-import {BASEURL, CATEGORIES, CATEGORY, PRODUCT, PRODUCTS} from '../Api/endPoint';
+import useAxios from '../../../hooks/useAxios';
+import {BASEURL, CATEGORIES, CATEGORY, PRODUCT, PRODUCTS} from '../../../Api/endPoint';
 import {Link} from 'react-router-dom';
-import PaginatedItems from '../Components/Dashboard/Pagination/Pagination';
+import PaginatedItems from '../../../Components/Dashboard/Pagination/Pagination';
 
 const Products = () => {
   let [products, setProducts] = useState([]);
   let [loading, setLoading] = useState(true);
-  const numberOfRow = 4;
+  const numberOfRow = 5;
   const [page, setPage] = useState(1);
-  let dataAfterPaginate = [];
   let [numberOfPages, setNumberOfPages] = useState(0);
   async function getProducts() {
-    let {data, errorMessage} = await useAxios.getProducts(`${BASEURL}/${PRODUCTS}`);
+    let {data, errorMessage} = await useAxios.getProducts(`${BASEURL}/${PRODUCTS}?limit=${numberOfRow}&page=${page}`);
     if (!errorMessage) {
-      dataAfterPaginate = data.slice((page - 1) * numberOfRow, page * numberOfRow);
-      setNumberOfPages(data.length / numberOfRow);
-      setProducts(dataAfterPaginate);
+      console.log(data);
+      setNumberOfPages(Math.ceil(data.total / numberOfRow));
+      setProducts(data.data);
       setLoading(false);
     }
   }
@@ -27,6 +26,7 @@ const Products = () => {
   }
   useEffect(() => {
     getProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
   return (
     <div>

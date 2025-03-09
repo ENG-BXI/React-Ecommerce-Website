@@ -143,6 +143,22 @@ let useAxios = {
       return {errorMessage};
     }
   },
+  search: async (path, form) => {
+    let response, data, errorMessage;
+    try {
+      response = await axios.post(path, form, {
+        headers: {
+          Authorization: 'Bearer ' + cookie.get('Bearer')
+        }
+      });
+      data = response.data;
+    } catch (err) {
+      console.log('from Search ======> ', err);
+      errorMessage = err.data;
+    } finally {
+      return {data, errorMessage};
+    }
+  },
   addProductImages: async (path, form) => {
     let errorMessage;
     try {
